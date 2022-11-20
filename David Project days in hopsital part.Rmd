@@ -1,0 +1,72 @@
+---
+title: "David"
+output:
+  pdf_document: default
+  word_document: default
+date: "2022-11-16"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(xlsx)
+library(readxl)
+david_proj <- read_excel("david proj.xlsx")
+```
+
+```{r}
+H_D <- david_proj[c("ID","Days","UB","ISS","GCS")]
+H_D$Days <- as.integer(H_D$Days)
+```
+
+```{r}
+library(ggplot2)
+ggplot(data = H_D, mapping = aes(x = ID, y = Days)) +
+  geom_point(size = 0.3, color = "blue", alpha = 0.8) +
+   scale_x_discrete(breaks = seq(0, 100, by = 5)) +
+   labs(title = " Patients VS. Days in Hospital",
+       x = "Patients",
+       y = "Days in Hospital",
+       tag = "1")
+```
+
+```{r}
+ggplot(data = H_D, mapping = aes(x = UB, y = Days)) +
+  geom_boxplot()+
+  labs(title = " Urban/Rural VS. Day in Hospital",
+       x = "Urban/Rural",
+       y = "Days in Hospital",
+       tag = "2")
+```
+
+```{r}
+ggplot(data = H_D, mapping = aes(x = ISS, y = Days))+
+  geom_point(size = 0.3, color = "blue", alpha = 0.8) +
+  geom_smooth(color = "green")+
+  labs(title = " ISS VS. Day in Hospital",
+       x = "ISS",
+       y = "Days in Hospital",
+       tag = "3")
+```
+
+```{r}
+ggplot(data = H_D, mapping = aes(x = GCS, y = Days))+
+  geom_point(size = 0.3, color = "blue", alpha = 0.8) +
+  geom_smooth(color = "red")+
+  labs(title = " GCS VS. Day in Hospital",
+       x = "GCS",
+       y = "Days in Hospital",
+       tag = "3")
+```
+
+```{r}
+ggplot(data = H_D, mapping = aes(x = Days, y = ISS))+
+  geom_point(size = 0.3, color = "blue", alpha = 0.8) +
+  geom_smooth(color = "green")
+ggplot(data = H_D, mapping = aes(x = Days, y = GCS))+
+  geom_point(size = 0.3, color = "blue", alpha = 0.8) +
+  geom_smooth(color = "red")
+```
+
